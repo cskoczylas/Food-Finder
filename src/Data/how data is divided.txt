@@ -1,0 +1,10 @@
+save as .xlsx
+NN = not needed
+
+if fast food
+	A		B		C			D					E		F		G
+	lat 	long	name (NN)	Street Address		City	State	Phone (NN)
+	
+if health
+	A					B		C			D
+	Street Address		State	Zipcode		Phone (NN)
