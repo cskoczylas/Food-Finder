@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -65,15 +66,17 @@ public class HealthFood implements Restaurant {
 		}
 	}
 	
-	public void searchByZip(String Zip)
+	public ArrayList<String> searchByZip(String Zip)
 	{
+		ArrayList<String> results = new ArrayList<>();
 		for(int i = 0; i < addresses.length; i++)
 		{
 			if(addresses[i][2].equals(Zip))
 			{
-				System.out.println(addresses[i][0] + addresses[i][1] + addresses[i][2]);
+				results.add(addresses[i][0] + "\n" + addresses[i][1] + "\n" + addresses[i][2]);
 			}
 		}
+		return results;
 	}
 
 	public void check()

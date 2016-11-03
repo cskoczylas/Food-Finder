@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -47,15 +49,26 @@ public class Controller {
 	@FXML
 	public void toZipResultsClicked() throws IOException 
 	{
+		ArrayList<String> results = new ArrayList<>();
+	    ObservableList<String> data = FXCollections.observableArrayList();
+
 		if(isZip(zipBox.getText()) && isChecked())
 		{
 			for(HealthFood r : controller.hFoods)
 			{
 				if(r.isChecked())
 				{
-					r.searchByZip(zipBox.getText());
+					results = r.searchByZip(zipBox.getText());
+					//System.out.println("check");
 				}
 			}
+			
+			for(String loc : results)
+			{
+				//System.out.println(loc);
+				data.add(loc);
+			}
+			
 			//load all locations into array
 			//after loading screen load array into ListView
 			
@@ -63,6 +76,8 @@ public class Controller {
 			Stage stage = (Stage) zipGo.getScene().getWindow();
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
+			
+			
 		}
 		else
 		{
