@@ -29,6 +29,13 @@ public class Controller {
 	@FXML
 	ListView<String> zipResults, addressResults;
 
+	JunkFood bk = new JunkFood("src/Data/burgerking.xlsx");
+	JunkFood md = new JunkFood("src/Data/mcdonalds.xlsx");
+	JunkFood ph = new JunkFood("src/Data/pizzahut.xlsx");
+	JunkFood w = new JunkFood("src/Data/wendys.xlsx");
+	HealthFood tj = new HealthFood("src/Data/traderjoes.xlsx");
+	HealthFood wf = new HealthFood("src/Data/wholefoods.xlsx");
+	
 	@FXML
 	public void toZipButtonClicked() throws IOException 
 	{
