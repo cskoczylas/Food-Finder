@@ -8,13 +8,20 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class JunkFood {
+public class JunkFood implements Restaurant {
 
 	// string array set-up: [latitude, longitude, street address, city, state]
 	String[][] addresses;
+	String name;
+	Boolean isChecked;
 	
 	JunkFood(String fileName) 
 	{
+    	String[] parsedName = fileName.split("[/.]");
+    	name = parsedName[2];
+    	
+    	isChecked = false;
+		
 		int rowNum = 0;
 		FileInputStream inputStream = null;
 		try {
@@ -51,6 +58,21 @@ public class JunkFood {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			inputStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	public void check()
+	{isChecked = true;}
+	
+	public void uncheck()
+	{isChecked = false;}
+
+	public boolean isChecked() 
+	{return isChecked;}
 	
 }

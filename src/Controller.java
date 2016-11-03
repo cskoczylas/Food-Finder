@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,14 +29,10 @@ public class Controller {
 	Label zipBoxDesc, addressBoxDesc;
 	@FXML
 	ListView<String> zipResults, addressResults;
-
-	JunkFood bk = new JunkFood("src/Data/burgerking.xlsx");
-	JunkFood md = new JunkFood("src/Data/mcdonalds.xlsx");
-	JunkFood ph = new JunkFood("src/Data/pizzahut.xlsx");
-	JunkFood w = new JunkFood("src/Data/wendys.xlsx");
-	HealthFood tj = new HealthFood("src/Data/traderjoes.xlsx");
-	HealthFood wf = new HealthFood("src/Data/wholefoods.xlsx");
 	
+	DataController controller = new DataController();
+
+		
 	@FXML
 	public void toZipButtonClicked() throws IOException 
 	{
@@ -50,8 +47,18 @@ public class Controller {
 	@FXML
 	public void toZipResultsClicked() throws IOException 
 	{
-		if(isZip(zipBox.getText()))
+		if(isZip(zipBox.getText()) && isChecked())
 		{
+			for(HealthFood r : controller.hFoods)
+			{
+				if(r.isChecked())
+				{
+					r.searchByZip(zipBox.getText());
+				}
+			}
+			//load all locations into array
+			//after loading screen load array into ListView
+			
 			Parent root = FXMLLoader.load(getClass().getResource("Screens/ZipCodeResults.fxml"));
 			Stage stage = (Stage) zipGo.getScene().getWindow();
 			Scene scene = new Scene(root);
@@ -97,6 +104,8 @@ public class Controller {
 	@FXML
 	public void backFromZipResultsClicked() throws IOException
 	{
+		unCheckAll();
+		
 		Parent root = FXMLLoader.load(getClass().getResource("Screens/ZipCode.fxml"));
 		Stage stage = (Stage) back.getScene().getWindow();
 		Scene scene = new Scene(root);
@@ -125,5 +134,55 @@ public class Controller {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(zip);
 		return matcher.matches();
+	}
+	
+	private boolean isChecked()
+	{
+		boolean atLeastOne = false;
+		
+		if(burgerKing.isSelected())
+		{
+			controller.getJunk(0).check();
+			atLeastOne = true;
+		}
+		if(mcDonalds.isSelected())
+		{
+			controller.getJunk(1).check();
+			atLeastOne = true;
+		}
+		if(pizzaHut.isSelected())
+		{
+			controller.getJunk(2).check();
+			atLeastOne = true;
+		}
+		if(wendys.isSelected())
+		{
+			controller.getJunk(3).check();
+			atLeastOne = true;
+		}
+		if(traderJoes.isSelected())
+		{
+			controller.getHealth(0).check();
+			atLeastOne = true;
+		}
+		if(wholeFoods.isSelected())
+		{
+			controller.getHealth(1).check();
+			atLeastOne = true;
+		}
+
+		return atLeastOne;
+	}
+	
+	private void unCheckAll()
+	{
+		for(JunkFood r : controller.jFoods)
+		{
+			r.uncheck();
+		}
+		for(HealthFood r : controller.hFoods)
+		{
+			r.uncheck();
+		}
 	}
 }
