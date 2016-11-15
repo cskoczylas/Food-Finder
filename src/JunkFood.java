@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -64,6 +65,22 @@ public class JunkFood implements Restaurant {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<String> searchByZip(double[] bounds)
+	{
+		ArrayList<String> results = new ArrayList<>();
+		for(int i = 0; i < addresses.length; i++)
+		{
+			if(Double.parseDouble(addresses[i][0]) <= bounds[0] && Double.parseDouble(addresses[i][0]) >= bounds[2])
+			{
+				if(Double.parseDouble(addresses[i][1]) <= bounds[1] && Double.parseDouble(addresses[i][1]) >= bounds[3])
+				{
+					results.add(addresses[i][2] + addresses[i][3] + addresses[i][4]);
+				}
+			}
+		}
+		return results;
 	}
 	
 	public void check()

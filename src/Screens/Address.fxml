@@ -16,7 +16,7 @@
             <Image url="@Food%20Finder%20Logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="addressGo" layoutX="421.0" layoutY="196.0" mnemonicParsing="false" onAction="#toAddressResultsClicked" prefHeight="38.0" prefWidth="88.0" text="GO!">
+      <Button fx:id="addressGo" layoutX="421.0" layoutY="216.0" mnemonicParsing="false" onAction="#toAddressResultsClicked" prefHeight="38.0" prefWidth="88.0" text="GO!">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font></Button>
@@ -50,11 +50,11 @@
             <Font name="Arial" size="18.0" />
          </font>
       </CheckBox>
-      <TextField fx:id="addressBox" layoutX="60.0" layoutY="196.0" prefHeight="39.0" prefWidth="322.0">
+      <TextField fx:id="streetBox" layoutX="60.0" layoutY="143.0" prefHeight="39.0" prefWidth="322.0">
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <Label fx:id="addressBoxDesc" layoutX="60.0" layoutY="160.0" text="Enter Address">
+      <Label fx:id="streetBoxDesc" layoutX="60.0" layoutY="107.0" text="Steet Address">
          <font>
             <Font name="Arial" size="24.0" />
          </font>
@@ -64,5 +64,25 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Button>
+      <TextField fx:id="cityBox" layoutX="61.0" layoutY="215.0" prefHeight="39.0" prefWidth="175.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="stateBox" layoutX="278.0" layoutY="215.0" prefHeight="39.0" prefWidth="104.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Label fx:id="cityBoxDesc" layoutX="60.0" layoutY="183.0" text="City">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="stateBoxDesc" layoutX="278.0" layoutY="183.0" text="State">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
