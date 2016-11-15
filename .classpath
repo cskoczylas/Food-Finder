@@ -3,10 +3,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx"/>
-	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/Food-Finder/lib/commons-collections4-4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/Food-Finder/lib/poi-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/Food-Finder/lib/poi-ooxml-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/Food-Finder/lib/poi-ooxml-schemas-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/Food-Finder/lib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/CSE-2102-Locator/lib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/CSE-2102-Locator/lib/curvesapi-1.04.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/CSE-2102-Locator/lib/poi-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/CSE-2102-Locator/lib/poi-ooxml-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/CSE-2102-Locator/lib/poi-ooxml-schemas-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Shirokuma/Desktop/eclipse/workspace/CSE-2102-Locator/lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

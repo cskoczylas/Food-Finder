@@ -6,6 +6,7 @@ public class DataController {
 	JunkFood[] jFoods;
 	// array order: traderjoes, wholefoods
 	HealthFood[] hFoods;
+	
 
 	
 	DataController()
@@ -21,6 +22,7 @@ public class DataController {
 		
 		hFoods[0] = new HealthFood("src/Data/traderjoes.xlsx");
 		hFoods[1] = new HealthFood("src/Data/wholefoods.xlsx");
+				
 	}
 	
 	JunkFood getJunk(int location)
