@@ -169,16 +169,11 @@ public class Controller implements Initializable{
 			bounds[2] += (-1 * lat);
 			bounds[3] += (-1 * lng);
 			
-			for(double i : bounds)
-			{
-				System.out.println(i);
-			}
-			
 			for(HealthFood r : main.getDataController().hFoods)
 			{
 				if(r.isChecked())
 				{
-					results = r.searchByAddress(bounds);
+					results = r.searchByAddress(bounds, inputAddress[2], main.getDataController());
 					for(String loc : results)
 					{
 						loc = r.name + "@\n" + loc;

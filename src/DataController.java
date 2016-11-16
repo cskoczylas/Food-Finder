@@ -81,5 +81,19 @@ public class DataController {
 
 		return latLongBounds;
 	}
+	
+	public double[] getLatLong(String[] address) throws JSONException
+	{
+		double[] latLong = new double[2];
+		String json = client.SendRequest(templateURL[0] + templateURL[1] + templateURL[2] + address[0] + "," + address[1] + "," + address[2] + templateURL[4] + templateURL[5]);
+		
+		JSONObject obj = new JSONObject(json);
+		JSONObject bounds = obj.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
+		
+		latLong[0] = bounds.getDouble("lat");
+		latLong[1] = bounds.getDouble("lng");
+
+		return latLong;
+	}
 
 }

@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONException;
 
 public class HealthFood implements Restaurant {
 
@@ -15,14 +16,14 @@ public class HealthFood implements Restaurant {
 	String[][] addresses;
 	String name;
 	Boolean isChecked;
-	
+
 	HealthFood(String fileName) 
 	{
-    	String[] parsedName = fileName.split("[/.]");
-    	name = parsedName[2];
-    	
-    	isChecked = false;
-		
+		String[] parsedName = fileName.split("[/.]");
+		name = parsedName[2];
+
+		isChecked = false;
+
 		int rowNum = 0;
 		FileInputStream inputStream = null;
 		try {
@@ -31,7 +32,7 @@ public class HealthFood implements Restaurant {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		Workbook workbook = null;
 		try {
 			workbook = new XSSFWorkbook(inputStream);
@@ -42,7 +43,7 @@ public class HealthFood implements Restaurant {
 		Sheet sheet = workbook.getSheetAt(0);
 
 		addresses = new String[sheet.getPhysicalNumberOfRows()][3];
-		
+
 		for(Row row: sheet)
 		{
 			addresses[rowNum][0] = row.getCell(0).toString();
@@ -65,7 +66,7 @@ public class HealthFood implements Restaurant {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<String> searchByZip(String Zip)
 	{
 		ArrayList<String> results = new ArrayList<>();
@@ -78,17 +79,25 @@ public class HealthFood implements Restaurant {
 		}
 		return results;
 	}
-	
-	public ArrayList<String> searchByAddress(double[] bounds)
+
+	public ArrayList<String> searchByAddress(double[] bounds, String state, DataController controller) throws JSONException
 	{
 		ArrayList<String> results = new ArrayList<>();
 		for(int i = 0; i < addresses.length; i++)
 		{
-			if(Double.parseDouble(addresses[i][0]) <= bounds[0] && Double.parseDouble(addresses[i][0]) >= bounds[2])
+			if(addresses[i][1].equals(state))
 			{
-				if(Double.parseDouble(addresses[i][1]) <= bounds[1] && Double.parseDouble(addresses[i][1]) >= bounds[3])
+				String[] inputAddresses = addresses[i].clone();
+				inputAddresses[0] = inputAddresses[0].replace(" ", "+");
+				
+				double[] latLong = controller.getLatLong(inputAddresses);
+
+				if(latLong[0] <= bounds[0] && latLong[0] >= bounds[2])
 				{
-					results.add(addresses[i][2] + addresses[i][3] + addresses[i][4]);
+					if(latLong[1] <= bounds[1] && latLong[1] >= bounds[3])
+					{
+						results.add(addresses[i][0] + "\n" + addresses[i][1] + "\n" + addresses[i][2]);
+					}
 				}
 			}
 		}
@@ -97,11 +106,11 @@ public class HealthFood implements Restaurant {
 
 	public void check()
 	{isChecked = true;}
-	
+
 	public void uncheck()
 	{isChecked = false;}
-	
+
 	public boolean isChecked() 
 	{return isChecked;}
-	
+
 }
