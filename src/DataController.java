@@ -51,6 +51,7 @@ public class DataController {
 	{
 		//bounds are [NE lat, NE long, SW lat, SW long]
 		double[] latLongBounds = new double[4];
+		
 		String json = client.SendRequest(templateURL[0] + templateURL[1] + templateURL[2] + zipCode + templateURL[4] + templateURL[5]);
 		JSONObject obj = new JSONObject(json);
 		JSONObject bounds = obj.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("bounds");
@@ -62,6 +63,23 @@ public class DataController {
 
 		return latLongBounds;
 	
+	}
+	
+	public double[] addressToLatLongBounds(String[] inputAddress) throws JSONException
+	{
+		//inputAddress are [street, city, state]
+		double[] latLongBounds = new double[4];
+		
+		String json = client.SendRequest(templateURL[0] + templateURL[1] + templateURL[2] + inputAddress[0] + "," + inputAddress[1] + "," + inputAddress[2] + templateURL[4] + templateURL[5]);
+		JSONObject obj = new JSONObject(json);
+		JSONObject bounds = obj.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("bounds");
+		
+		latLongBounds[0] = bounds.getJSONObject("northeast").getDouble("lat");
+		latLongBounds[1] = bounds.getJSONObject("northeast").getDouble("lng");
+		latLongBounds[2] = bounds.getJSONObject("southwest").getDouble("lat");
+		latLongBounds[3] = bounds.getJSONObject("southwest").getDouble("lng");
+
+		return latLongBounds;
 	}
 
 }

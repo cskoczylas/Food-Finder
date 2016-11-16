@@ -42,7 +42,6 @@ public class HttpsClient
 				{
 					output = output + input;
 				}
-				System.out.println(input);
 				br.close();
 
 			} catch (IOException e) 

@@ -78,6 +78,22 @@ public class HealthFood implements Restaurant {
 		}
 		return results;
 	}
+	
+	public ArrayList<String> searchByAddress(double[] bounds)
+	{
+		ArrayList<String> results = new ArrayList<>();
+		for(int i = 0; i < addresses.length; i++)
+		{
+			if(Double.parseDouble(addresses[i][0]) <= bounds[0] && Double.parseDouble(addresses[i][0]) >= bounds[2])
+			{
+				if(Double.parseDouble(addresses[i][1]) <= bounds[1] && Double.parseDouble(addresses[i][1]) >= bounds[3])
+				{
+					results.add(addresses[i][2] + addresses[i][3] + addresses[i][4]);
+				}
+			}
+		}
+		return results;
+	}
 
 	public void check()
 	{isChecked = true;}

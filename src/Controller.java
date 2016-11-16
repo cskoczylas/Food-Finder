@@ -31,11 +31,12 @@ public class Controller implements Initializable{
 	@FXML
 	CheckBox mcDonalds, burgerKing, wendys, pizzaHut, traderJoes, wholeFoods;
 	@FXML
-	TextField zipBox, addressBox;
+	TextField zipBox, streetBox, cityBox, stateBox;
 	@FXML
-	Label zipBoxDesc, addressBoxDesc;
+	Label zipBoxDesc, streetBoxDesc, cityBoxDesc, stateBoxDesc;
 	@FXML
 	ListView<String> zipResults = new ListView<String>();
+	@FXML
 	ListView<String> addressResults = new ListView<String>();
 
 
@@ -105,7 +106,7 @@ public class Controller implements Initializable{
 
 
 		}
-		else if(isChecked() != true)
+		else if(!isChecked())
 		{
 			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/CheckBoxError.fxml"));
 			loader.setController(this);
@@ -144,15 +145,94 @@ public class Controller implements Initializable{
 	}
 
 	@FXML
-	public void toAddressResultsClicked() throws IOException
+	public void toAddressResultsClicked() throws IOException, JSONException
 	{
-		FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/AddressResults.fxml"));
-		loader.setController(this);
-		AnchorPane pane = loader.load();
+		ArrayList<String> results = new ArrayList<>();
+		ObservableList<String> data = FXCollections.observableArrayList();
+
+		if(addressIsFilled() && isChecked())
+		{
+	    	double km = 0.621371;
+	    	double lat = (25 * km) / 110.54;
+	    	double lng = (25 * km) / (111.320 * Math.cos(lat * Math.PI / 180));
+			
+			String[] inputAddress = new String[3];
+			inputAddress[0] = streetBox.getText().replace(" ", "+");
+			inputAddress[1] = cityBox.getText().replace(" ", "+");
+			inputAddress[2] = stateBox.getText().replace(" ", "+");
+			//bounds are [NE lat, NE long, SW lat, SW long]
+			
+			double[] bounds = main.getDataController().addressToLatLongBounds(inputAddress);
+
+			bounds[0] += lat;
+			bounds[1] += lng;
+			bounds[2] += (-1 * lat);
+			bounds[3] += (-1 * lng);
+			
+			for(double i : bounds)
+			{
+				System.out.println(i);
+			}
+			
+			for(HealthFood r : main.getDataController().hFoods)
+			{
+				if(r.isChecked())
+				{
+					results = r.searchByAddress(bounds);
+					for(String loc : results)
+					{
+						loc = r.name + "@\n" + loc;
+						data.add(loc);
+					}
+				}
+			}
+			for(JunkFood r : main.getDataController().jFoods)
+			{
+				if(r.isChecked())
+				{
+					results = r.searchByZip(bounds);
+					for(String loc: results)
+					{
+						loc = r.name + "@\n" + loc;
+						data.add(loc);
+					}
+				}
+			}
+			
+			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/AddressResults.fxml"));
+			loader.setController(this);
+			AnchorPane pane = loader.load();
+
+			addressResults.setItems(data);
+
+			Scene scene = new Scene(pane);
+			main.getStage().setScene(scene);
+			
+		}
+		else if (addressIsFilled() && !isChecked())
+		{
+			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/CheckBoxError.fxml"));
+			loader.setController(this);
+			AnchorPane pane = loader.load();
 
 
-		Scene scene = new Scene(pane);
-		main.getStage().setScene(scene);
+			Scene scene = new Scene(pane);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
+		}
+		else
+		{
+			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/AddressError.fxml"));
+			loader.setController(this);
+			AnchorPane pane = loader.load();
+
+			Scene scene = new Scene(pane);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
+		}
+
 	}
 
 	@FXML
@@ -171,6 +251,7 @@ public class Controller implements Initializable{
 	public void backFromZipResultsClicked() throws IOException
 	{
 		unCheckAll();
+		clearList();
 
 		FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/ZipCode.fxml"));
 		loader.setController(this);
@@ -184,6 +265,9 @@ public class Controller implements Initializable{
 	@FXML
 	public void backFromAddressResultsClicked() throws IOException
 	{
+		unCheckAll();
+		clearList();
+		
 		FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/Address.fxml"));
 		loader.setController(this);
 		AnchorPane pane = loader.load();
@@ -206,6 +290,14 @@ public class Controller implements Initializable{
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(zip);
 		return matcher.matches();
+	}
+	
+	public boolean addressIsFilled() throws IOException
+	{
+		if(streetBox.getText().isEmpty() || cityBox.getText().isEmpty() || stateBox.getText().isEmpty())
+		{return false;}
+		else
+		{return true;}
 	}
 
 	private boolean isChecked()
@@ -256,6 +348,13 @@ public class Controller implements Initializable{
 		{
 			r.uncheck();
 		}
+	}
+	
+	private void clearList()
+	{
+		ListView<String> temp = new ListView<String>();
+		zipResults = temp;
+		addressResults = temp;		
 	}
 
 
