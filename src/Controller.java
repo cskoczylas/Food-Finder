@@ -25,26 +25,25 @@ import javafx.stage.Stage;
 public class Controller implements Initializable{
 
 	@FXML
-	Button toZip, toAddress, back, zipGo, addressGo, errorOK;
+	private Button toZip, toAddress, back, zipGo, addressGo, errorOK;
 	@FXML
-	ImageView logoImage;
+	private ImageView logoImage;
 	@FXML
-	CheckBox mcDonalds, burgerKing, wendys, pizzaHut, traderJoes, wholeFoods;
+	private CheckBox mcDonalds, burgerKing, wendys, pizzaHut, traderJoes, wholeFoods;
 	@FXML
-	TextField zipBox, streetBox, cityBox, stateBox;
+	private TextField zipBox, streetBox, cityBox, stateBox;
 	@FXML
-	Label zipBoxDesc, streetBoxDesc, cityBoxDesc, stateBoxDesc;
+	private Label zipBoxDesc, streetBoxDesc, cityBoxDesc, stateBoxDesc;
 	@FXML
-	ListView<String> zipResults = new ListView<String>();
+	private ListView<String> zipResults = new ListView<String>();
 	@FXML
-	ListView<String> addressResults = new ListView<String>();
+	private ListView<String> addressResults = new ListView<String>();
 
 
 	private MainDisplay main;
 
 	public void setMain(MainDisplay main)
 	{this.main = main;}
-
 
 	@FXML
 	public void toZipButtonClicked() throws IOException 
@@ -53,10 +52,8 @@ public class Controller implements Initializable{
 		loader.setController(this);
 		AnchorPane pane = loader.load();
 
-
 		Scene scene = new Scene(pane);
 		main.getStage().setScene(scene);
-
 	}
 
 	@FXML
@@ -76,7 +73,7 @@ public class Controller implements Initializable{
 					results = r.searchByZip(zipBox.getText());
 					for(String loc : results)
 					{
-						loc = r.name + "@\n" + loc;
+						loc = r.getName() + "@\n" + loc;
 						data.add(loc);
 					}
 				}
@@ -88,7 +85,7 @@ public class Controller implements Initializable{
 					results = r.searchByZip(bounds);
 					for(String loc: results)
 					{
-						loc = r.name + "@\n" + loc;
+						loc = r.getName() + "@\n" + loc;
 						data.add(loc);
 					}
 				}
@@ -139,7 +136,6 @@ public class Controller implements Initializable{
 		loader.setController(this);
 		AnchorPane pane = loader.load();
 
-
 		Scene scene = new Scene(pane);
 		main.getStage().setScene(scene);
 	}
@@ -176,7 +172,7 @@ public class Controller implements Initializable{
 					results = r.searchByAddress(bounds, inputAddress[2], main.getDataController());
 					for(String loc : results)
 					{
-						loc = r.name + "@\n" + loc;
+						loc = r.getName() + "@\n" + loc;
 						data.add(loc);
 					}
 				}
@@ -188,7 +184,7 @@ public class Controller implements Initializable{
 					results = r.searchByZip(bounds);
 					for(String loc: results)
 					{
-						loc = r.name + "@\n" + loc;
+						loc = r.getName() + "@\n" + loc;
 						data.add(loc);
 					}
 				}

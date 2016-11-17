@@ -10,14 +10,12 @@ public class DataController {
 	HealthFood[] hFoods;
 
 	private static String APIkey = "AIzaSyCUwb8Nn9rm4eAAfiZFHED5bhC2_s8ZiB8";
-
 	private HttpsClient client = new HttpsClient();
-
 	private static String[] templateURL = new String[6];
 
+	//the Data Controller constructor creates two arrays that holds all the junk food and health food restaurant objects
 	DataController()
 	{
-
 		jFoods = new JunkFood[4];
 		hFoods = new HealthFood[2];
 
@@ -35,18 +33,15 @@ public class DataController {
 		templateURL[3] = "?latlng="; 
 		templateURL[4] = "&key=";
 		templateURL[5] = APIkey; //put the API key here
-
 	}
 
-	JunkFood getJunk(int location)
-	{
-		return jFoods[location];
-	}
+	public JunkFood getJunk(int location)
+	{return jFoods[location];}
 
-	HealthFood getHealth(int location){
-		return hFoods[location];
-	}
-
+	public HealthFood getHealth(int location)
+	{return hFoods[location];}
+	
+	//this method takes in a zip code and geocodes it into lat and long bounds using the Google Maps API
 	public double[] zipToLatLongBounds(String zipCode) throws JSONException
 	{
 		//bounds are [NE lat, NE long, SW lat, SW long]
@@ -62,9 +57,9 @@ public class DataController {
 		latLongBounds[3] = bounds.getJSONObject("southwest").getDouble("lng");
 
 		return latLongBounds;
-	
 	}
 	
+	//this methods takes in address and geocodes it into lat and long bounds using the Google Maps API
 	public double[] addressToLatLongBounds(String[] inputAddress) throws JSONException
 	{
 		//inputAddress are [street, city, state]
@@ -82,6 +77,7 @@ public class DataController {
 		return latLongBounds;
 	}
 	
+	//this method takes in an address and gets the lat and long of the address using the Google Maps API
 	public double[] getLatLong(String[] address) throws JSONException
 	{
 		double[] latLong = new double[2];

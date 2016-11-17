@@ -12,15 +12,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class JunkFood implements Restaurant {
 
 	// string array set-up: [latitude, longitude, street address, city, state]
-	String[][] addresses;
-	String name;
-	Boolean isChecked;
+	private String[][] addresses;
+	private String name;
+	private Boolean isChecked;
 	
+	//JunkFood constructer takes in a filename for the excel data and parses the excel workbook into data within the String Double Array addresses
+	//It also stores the name of the restaurant within the String name and it also makes isChecked false
 	JunkFood(String fileName) 
 	{
     	String[] parsedName = fileName.split("[/.]");
     	name = parsedName[2];
-    	
     	isChecked = false;
 		
 		int rowNum = 0;
@@ -67,6 +68,9 @@ public class JunkFood implements Restaurant {
 		}
 	}
 	
+	//searchByZip takes in a double[] bounds which has the lat and long bounds from the Google Maps API
+	//it compares the lat and long within the addresses array and if they are within the bounds they are stored in results
+	//searchByZip is also used to search by address since they use the same method
 	public ArrayList<String> searchByZip(double[] bounds)
 	{
 		ArrayList<String> results = new ArrayList<>();
@@ -82,6 +86,12 @@ public class JunkFood implements Restaurant {
 		}
 		return results;
 	}
+
+	public boolean isChecked() 
+	{return isChecked;}
+	
+	public String getName()
+	{return name;}
 	
 	public void check()
 	{isChecked = true;}
@@ -89,7 +99,5 @@ public class JunkFood implements Restaurant {
 	public void uncheck()
 	{isChecked = false;}
 
-	public boolean isChecked() 
-	{return isChecked;}
 	
 }

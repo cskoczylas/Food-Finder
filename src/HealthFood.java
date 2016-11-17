@@ -13,10 +13,12 @@ import org.json.JSONException;
 public class HealthFood implements Restaurant {
 
 	// string array set-up: [street address, state, zipcode]
-	String[][] addresses;
-	String name;
-	Boolean isChecked;
+	private String[][] addresses;
+	private String name;
+	private Boolean isChecked;
 
+	//JunkFood constructer takes in a filename for the excel data and parses the excel workbook into data within the String Double Array addresses
+	//It also stores the name of the restaurant within the String name and it also makes isChecked false
 	HealthFood(String fileName) 
 	{
 		String[] parsedName = fileName.split("[/.]");
@@ -67,6 +69,8 @@ public class HealthFood implements Restaurant {
 		}
 	}
 
+	//serachByZip takes in a String input of a zip code and its runs through the addresses array and compares the zip code of different locations to the zip code from the input
+	//if they match, the address is stored in results
 	public ArrayList<String> searchByZip(String Zip)
 	{
 		ArrayList<String> results = new ArrayList<>();
@@ -80,6 +84,10 @@ public class HealthFood implements Restaurant {
 		return results;
 	}
 
+	//searchByAddress first compares the state that the user input and only compares restaurants within that state
+	//then it gets the bounds, which are created by adding 25 miles to the lat and long bounds of the users input
+	//then it checks every health food within the state and sees if the restaurants lat and long are within the bounds
+	//if they are, add to results
 	public ArrayList<String> searchByAddress(double[] bounds, String state, DataController controller) throws JSONException
 	{
 		ArrayList<String> results = new ArrayList<>();
@@ -104,13 +112,16 @@ public class HealthFood implements Restaurant {
 		return results;
 	}
 
-	public void check()
-	{isChecked = true;}
-
-	public void uncheck()
-	{isChecked = false;}
-
 	public boolean isChecked() 
 	{return isChecked;}
+	
+	public String getName()
+	{return name;}
+	
+	public void check()
+	{isChecked = true;}
+	
+	public void uncheck()
+	{isChecked = false;}
 
 }

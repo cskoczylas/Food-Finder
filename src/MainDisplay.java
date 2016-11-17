@@ -9,17 +9,18 @@ import javafx.stage.Stage;
 public class MainDisplay extends Application {
 
 	private Stage primaryStage;
-	DataController dataController = new DataController();
+	private DataController dataController = new DataController();
 	
 	@Override
     public void start(Stage primaryStage) throws Exception 
-  {
+	{
 		this.primaryStage = primaryStage;
 		
 		mainWindow();
     }
 	
-	public void mainWindow()
+	//loads the first screen [Main] and starts the Controller for the GUI
+	private void mainWindow()
 	{
 		try {
 			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/Main.fxml"));
@@ -39,21 +40,16 @@ public class MainDisplay extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-
 	}
 
-	
+	//getters for the Data Controller and the Stage
 	public DataController getDataController()
-	{
-		return dataController;
-	}
+	{return dataController;}
 	
 	public Stage getStage()
-	{
-		return primaryStage;
-	}
+	{return primaryStage;}
 
+	
     public static void main(String[] args) throws IOException {
     	launch(args);
 

@@ -3,25 +3,22 @@ import java.net.URL;
 import java.io.*;
 import javax.net.ssl.HttpsURLConnection;
 
-public class HttpsClient
-{
+//HttpsClient sends and receives data from the internet
+//Used to get data from the Google Maps API
+public class HttpsClient{
 
-	public String SendRequest(String input)
+	//Returns a string object of a json output from the Google Maps API
+	public String SendRequest(String https_url)
 	{
-		String https_url = input;
-		URL url;
 		String output = "";
-		try 
-		{
-			url = new URL(https_url);
+		try {
+			URL url = new URL(https_url);
 			HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
 			output = PrintContent(con);
 
-		} catch (MalformedURLException e) 
-		{
+		} catch (MalformedURLException e) {
 			e.printStackTrace();
-		} catch (IOException e) 
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return output;
@@ -32,20 +29,15 @@ public class HttpsClient
 		String output = "";
 		if(con!=null)
 		{
-
-			try 
-			{
+			try {
 				BufferedReader br =new BufferedReader(new InputStreamReader(con.getInputStream()));
-
 				String input;
+				
 				while ((input = br.readLine()) != null)
-				{
-					output = output + input;
-				}
+				{output = output + input;}
 				br.close();
 
-			} catch (IOException e) 
-			{
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
