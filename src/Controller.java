@@ -44,17 +44,10 @@ public class Controller implements Initializable{
 
 	public void setMain(MainDisplay main)
 	{this.main = main;}
-
+	
 	@FXML
 	public void toZipButtonClicked() throws IOException 
-	{
-		FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/ZipCode.fxml"));
-		loader.setController(this);
-		AnchorPane pane = loader.load();
-
-		Scene scene = new Scene(pane);
-		main.getStage().setScene(scene);
-	}
+	{changeScreen("Screens/ZipCode.fxml");}
 
 	@FXML
 	public void toZipResultsClicked() throws IOException, JSONException 
@@ -91,54 +84,17 @@ public class Controller implements Initializable{
 				}
 			}
 
-
-			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/ZipCodeResults.fxml"));
-			loader.setController(this);
-			AnchorPane pane = loader.load();
-
-			zipResults.setItems(data);
-
-			Scene scene = new Scene(pane);
-			main.getStage().setScene(scene);
-
-
+			changeScreen("Screens/ZipCodeResults.fxml");
 		}
 		else if(!isChecked())
-		{
-			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/CheckBoxError.fxml"));
-			loader.setController(this);
-			AnchorPane pane = loader.load();
-
-
-			Scene scene = new Scene(pane);
-			Stage stage = new Stage();
-			stage.setScene(scene);
-			stage.show();
-		}
+		{createError("Screens/CheckBoxError.fxml");}
 		else
-		{
-			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/ZipError.fxml"));
-			loader.setController(this);
-			AnchorPane pane = loader.load();
-
-
-			Scene scene = new Scene(pane);
-			Stage stage = new Stage();
-			stage.setScene(scene);
-			stage.show();
-		}
+		{createError("Screens/ZipError.fxml");}
 	}
 
 	@FXML
 	public void toAddressButtonClicked() throws IOException 
-	{
-		FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/Address.fxml"));
-		loader.setController(this);
-		AnchorPane pane = loader.load();
-
-		Scene scene = new Scene(pane);
-		main.getStage().setScene(scene);
-	}
+	{changeScreen("Screens/Address.fxml");}
 
 	@FXML
 	public void toAddressResultsClicked() throws IOException, JSONException
@@ -190,53 +146,18 @@ public class Controller implements Initializable{
 				}
 			}
 			
-			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/AddressResults.fxml"));
-			loader.setController(this);
-			AnchorPane pane = loader.load();
-
-			addressResults.setItems(data);
-
-			Scene scene = new Scene(pane);
-			main.getStage().setScene(scene);
-			
+			changeScreen("Screens/AddressResults.fxml");
 		}
 		else if (addressIsFilled() && !isChecked())
-		{
-			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/CheckBoxError.fxml"));
-			loader.setController(this);
-			AnchorPane pane = loader.load();
-
-
-			Scene scene = new Scene(pane);
-			Stage stage = new Stage();
-			stage.setScene(scene);
-			stage.show();
-		}
+		{createError("Screens/CheckBoxError.fxml");}
 		else
-		{
-			FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/AddressError.fxml"));
-			loader.setController(this);
-			AnchorPane pane = loader.load();
-
-			Scene scene = new Scene(pane);
-			Stage stage = new Stage();
-			stage.setScene(scene);
-			stage.show();
-		}
+		{createError("Screens/AddressError.fxml");}
 
 	}
 
 	@FXML
 	public void backFromSecondClicked() throws IOException
-	{
-		FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/Main.fxml"));
-		loader.setController(this);
-		AnchorPane pane = loader.load();
-
-
-		Scene scene = new Scene(pane);
-		main.getStage().setScene(scene);
-	}
+	{changeScreen("Screens/Main.fxml");}
 
 	@FXML
 	public void backFromZipResultsClicked() throws IOException
@@ -244,13 +165,7 @@ public class Controller implements Initializable{
 		unCheckAll();
 		clearList();
 
-		FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/ZipCode.fxml"));
-		loader.setController(this);
-		AnchorPane pane = loader.load();
-
-
-		Scene scene = new Scene(pane);
-		main.getStage().setScene(scene);
+		changeScreen("Screens/ZipCode.fxml");
 	}
 
 	@FXML
@@ -259,13 +174,7 @@ public class Controller implements Initializable{
 		unCheckAll();
 		clearList();
 		
-		FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource("Screens/Address.fxml"));
-		loader.setController(this);
-		AnchorPane pane = loader.load();
-
-
-		Scene scene = new Scene(pane);
-		main.getStage().setScene(scene);
+		changeScreen("Screens/Address.fxml");
 	}
 
 	@FXML
@@ -275,7 +184,7 @@ public class Controller implements Initializable{
 		stage.close();
 	}
 
-	public boolean isZip(String zip)
+	private boolean isZip(String zip)
 	{
 		String regex = "^[0-9]{5}(?:-[0-9]{4})?$";
 		Pattern pattern = Pattern.compile(regex);
@@ -283,7 +192,7 @@ public class Controller implements Initializable{
 		return matcher.matches();
 	}
 	
-	public boolean addressIsFilled() throws IOException
+	private boolean addressIsFilled() throws IOException
 	{
 		if(streetBox.getText().isEmpty() || cityBox.getText().isEmpty() || stateBox.getText().isEmpty())
 		{return false;}
@@ -332,13 +241,9 @@ public class Controller implements Initializable{
 	private void unCheckAll()
 	{
 		for(JunkFood r : main.getDataController().jFoods)
-		{
-			r.uncheck();
-		}
+		{r.uncheck();}
 		for(HealthFood r : main.getDataController().hFoods)
-		{
-			r.uncheck();
-		}
+		{r.uncheck();}
 	}
 	
 	private void clearList()
@@ -346,6 +251,28 @@ public class Controller implements Initializable{
 		ListView<String> temp = new ListView<String>();
 		zipResults = temp;
 		addressResults = temp;		
+	}
+	
+	private void changeScreen(String location) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource(location));
+		loader.setController(this);
+		AnchorPane pane = loader.load();
+
+		Scene scene = new Scene(pane);
+		main.getStage().setScene(scene);
+	}
+	
+	private void createError(String location) throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(MainDisplay.class.getResource(location));
+		loader.setController(this);
+		AnchorPane pane = loader.load();
+
+		Scene scene = new Scene(pane);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
 	}
 
 
