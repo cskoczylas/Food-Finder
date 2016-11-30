@@ -85,6 +85,7 @@ public class Controller implements Initializable{
 			}
 
 			changeScreen("Screens/ZipCodeResults.fxml");
+			zipResults.setItems(data);
 		}
 		else if(!isChecked())
 		{createError("Screens/CheckBoxError.fxml");}
@@ -147,6 +148,7 @@ public class Controller implements Initializable{
 			}
 			
 			changeScreen("Screens/AddressResults.fxml");
+			addressResults.setItems(data);
 		}
 		else if (addressIsFilled() && !isChecked())
 		{createError("Screens/CheckBoxError.fxml");}
