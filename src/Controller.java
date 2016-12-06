@@ -18,6 +18,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -33,7 +34,7 @@ public class Controller implements Initializable{
 	@FXML
 	private TextField zipBox, streetBox, cityBox, stateBox;
 	@FXML
-	private Label zipBoxDesc, streetBoxDesc, cityBoxDesc, stateBoxDesc;
+	private Label zipBoxDesc, streetBoxDesc, cityBoxDesc, stateBoxDesc, hoverDesc;
 	@FXML
 	private ListView<String> zipResults = new ListView<String>();
 	@FXML
@@ -47,7 +48,13 @@ public class Controller implements Initializable{
 	
 	@FXML
 	public void toZipButtonClicked() throws IOException 
-	{changeScreen("Screens/ZipCode.fxml");}
+	{changeScreen("Screens/ZipCode.fxml");
+	
+	//used for testing
+	Tooltip t = new Tooltip("test");
+	mcDonalds.setTooltip(t);
+	
+	}
 
 	@FXML
 	public void toZipResultsClicked() throws IOException, JSONException 

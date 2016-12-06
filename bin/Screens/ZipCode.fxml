@@ -64,5 +64,10 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Button>
+      <Label fx:id="hoverDesc" layoutX="95.0" layoutY="559.0" text="Hover over restaurant to see more info">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
