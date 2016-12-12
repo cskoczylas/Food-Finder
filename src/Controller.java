@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -48,12 +49,9 @@ public class Controller implements Initializable{
 	
 	@FXML
 	public void toZipButtonClicked() throws IOException 
-	{changeScreen("Screens/ZipCode.fxml");
-	
-	//used for testing
-	Tooltip t = new Tooltip("test");
-	mcDonalds.setTooltip(t);
-	
+	{
+		changeScreen("Screens/ZipCode.fxml");
+		createToolTips();
 	}
 
 	@FXML
@@ -102,7 +100,10 @@ public class Controller implements Initializable{
 
 	@FXML
 	public void toAddressButtonClicked() throws IOException 
-	{changeScreen("Screens/Address.fxml");}
+	{
+		changeScreen("Screens/Address.fxml");
+		createToolTips();
+	}
 
 	@FXML
 	public void toAddressResultsClicked() throws IOException, JSONException
@@ -282,6 +283,33 @@ public class Controller implements Initializable{
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	private void createToolTips()
+	{
+		String[] locationNames = new String[] {"bk", "mcd", "pz", "tj", "wf", "wnd"};
+		
+		for(String name : locationNames)
+		{
+			Tooltip ttip = new Tooltip();
+			Image img = new Image("Screens/" + name + ".png");
+			ImageView logo = new ImageView(img);
+			ttip.setGraphic(logo);
+			
+			if(name.equals("bk"))
+			{burgerKing.setTooltip(ttip);}
+			else if(name.equals("mcd"))
+			{mcDonalds.setTooltip(ttip);}
+			else if(name.equals("pz"))
+			{pizzaHut.setTooltip(ttip);}
+			else if(name.equals("tj"))
+			{traderJoes.setTooltip(ttip);}
+			else if(name.equals("wf"))
+			{wholeFoods.setTooltip(ttip);}
+			else if(name.equals("wnd"))
+			{wendys.setTooltip(ttip);}
+		}
+		
 	}
 
 

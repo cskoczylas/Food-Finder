@@ -1,0 +1,1 @@
+If there are errors about missing libraries in the code, you will need to add external JARs to the build path. Just add all the exteral JARs located in the lib folder within the Food Finder folder.
